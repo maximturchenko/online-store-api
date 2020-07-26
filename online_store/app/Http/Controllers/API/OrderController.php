@@ -57,8 +57,8 @@ class OrderController extends BaseController
                 return $this->sendError(['Доступный остаток на складе для товара (id: '.$product->id.') '.$product->name => $q_now ], 'Невозможно заказать указанный товар,так как он кончился на складе.');
             }
         }
-
-        DB::transaction(function() use ($products,$quantityes,$request)
+        $summ_price = 0; //Финальная стоимость всего заказа
+        DB::transaction(function() use ($products,$quantityes,$request,&$summ_price)
         {
             $customer = Customer::firstOrCreate([
                 'email' => $request->email, 
@@ -83,6 +83,7 @@ class OrderController extends BaseController
                 $products_orders = Products_Orders::create([
                     'product_id' => $product->id,
                     'order_id' => $order->id,
+                    'price' => $product->price,
                     'quantity_products' => $quantityes[$key],
                 ]);
 
@@ -90,8 +91,13 @@ class OrderController extends BaseController
                 {
                     throw new \Exception('Не удалось добавить заказ');
                 }
+                $sum_product = $product->price * $quantityes[$key];
+                $summ_price += $sum_product;
             }
        });
-       return $this->sendResponse($products->toArray(), 'Заказ  '.$request->last_name.' '.$request->first_name.' успешно добавлен.');
+       return $this->sendResponse($products->toArray(), 'Заказ  '.$request->last_name.' '.$request->first_name.' успешно добавлен. Cтоимость заказа: '. $summ_price );
+
+
+
      }
 }

@@ -132,7 +132,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="392" y="320" name="products_orders">
+<table x="411" y="304" name="products_orders">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -145,6 +145,9 @@
 <default>NULL</default><relation table="orders" row="id" />
 </row>
 <row name="quantity_products" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="price" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">

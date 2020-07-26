@@ -14,7 +14,7 @@ class Products_Orders extends Model
      * @var array
      */
     protected $fillable = [
-        'product_id', 'order_id','quantity_products'
+        'product_id', 'order_id','quantity_products','price'
     ];
 
 
