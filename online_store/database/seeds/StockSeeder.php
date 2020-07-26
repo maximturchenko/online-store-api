@@ -16,11 +16,5 @@ class StockSeeder extends Seeder
         DB::table('stocks')->insert([
             'name' => "Склад №1.",  
         ]);
-        DB::table('stocks')->insert([
-            'name' => "Склад №2.",  
-        ]);
-        DB::table('stocks')->insert([
-            'name' => "Склад №3.",  
-        ]);
     }
 }
