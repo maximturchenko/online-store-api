@@ -17,7 +17,7 @@ class CreateProductsStocksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');         
             $table->unsignedBigInteger('stock_id');  
-            $table->integer('quantity'); 
+            $table->integer('quantity'); //Количество на складе
             $table->timestamps();
         });
 

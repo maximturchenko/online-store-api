@@ -4,20 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Products_Stocks extends Model
 {
+    protected $table = 'products_stocks';
+
      /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'phone_number','first_name','middle_name','last_name'
+        'product_id', 'stock_id','quantity'
     ];
-
-    public function orders(){
-        return $this->hasMany('App\Order');
-    }
-
 }
  
