@@ -19,6 +19,16 @@ class ProductsStocksSeeder extends Seeder
             'quantity' => rand(0, 4),  
         ]);
         DB::table('products_stocks')->insert([
+            'product_id' => 1, 
+            'stock_id' => 2,  
+            'quantity' => 2,  
+        ]);
+        DB::table('products_stocks')->insert([
+            'product_id' => 1, 
+            'stock_id' => 3,  
+            'quantity' => 15,  
+        ]);
+        DB::table('products_stocks')->insert([
             'product_id' => 2, 
             'stock_id' => 2,  
             'quantity' => rand(0, 4),  

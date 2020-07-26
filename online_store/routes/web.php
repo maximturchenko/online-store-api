@@ -19,3 +19,7 @@ Route::get('/', function () {
 
 //Test
 Route::resource('products', 'API\ProductController');
+
+
+
+Route::get('orders', 'API\OrderController@order');

@@ -34,6 +34,10 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Order','products_orders','product_id','order_id');
     }
-
+ 
+    public function products_stocks()
+    {
+        return $this->hasMany('App\Products_Stocks','product_id');
+    } 
 }
  

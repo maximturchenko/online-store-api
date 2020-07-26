@@ -8,7 +8,6 @@ use App\Product;
 use App\Category; 
 use App\Products_Stocks; 
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends BaseController

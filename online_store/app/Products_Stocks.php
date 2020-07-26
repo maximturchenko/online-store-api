@@ -16,5 +16,10 @@ class Products_Stocks extends Model
     protected $fillable = [
         'product_id', 'stock_id','quantity'
     ];
+
+
+    public function checksQuantityForbuy($buyingQ){
+        return $this->quantity >= $buyingQ;
+    }
 }
  
