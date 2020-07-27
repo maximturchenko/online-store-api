@@ -8,7 +8,8 @@ use App\Product;
 use App\Category; 
 use App\Products_Stocks; 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends BaseController
 {
@@ -39,7 +40,6 @@ class ProductController extends BaseController
 
         return $this->sendResponse($products->toArray(), 'Все товары.');
 
-        
     }
 
     /**
@@ -102,18 +102,22 @@ class ProductController extends BaseController
             LEFT JOIN products_stocks ON products.id = products_stocks.product_id
             LEFT JOIN stocks ON products_stocks.stock_id = stocks.id  where products.id = 1
     */
-      $product = DB::table('products')
-      ->select('products.id', 'products.name','products.description', 'products.price', 'categories.name as category','stocks.name as stock','products_stocks.quantity')
-      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-      ->leftJoin('products_stocks', 'products.id', '=', 'products_stocks.product_id')
-      ->leftJoin('stocks', 'products_stocks.stock_id', '=', 'stocks.id')
-      ->where('products.id', '=', $id)
-      ->get();  
-        if (is_null($product)) {
-            return $this->sendError('Товар не найден.');
+        if (!Cache::has($id)) {
+            $product = DB::table('products')
+            ->select('products.id', 'products.name','products.description', 'products.price', 'categories.name as category','stocks.name as stock','products_stocks.quantity')
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+            ->leftJoin('products_stocks', 'products.id', '=', 'products_stocks.product_id')
+            ->leftJoin('stocks', 'products_stocks.stock_id', '=', 'stocks.id')
+            ->where('products.id', '=', $id)
+            ->get();  
+            if (is_null($product) or empty($product['items']) ) {
+                return $this->sendError('Товар не найден.');
+            }
+            Cache::put( $id , $product );
         }
+         $product = Cache::get($id);     
         return $this->sendResponse($product->toArray(), 'Товар показан.');
-    }
+    }  
 
     /**
      * Show the form for editing the specified resource.
@@ -149,3 +153,15 @@ class ProductController extends BaseController
         //
     }
 }
+
+
+/*
+    public function test($id){
+        $value = 0;
+        if (!Cache::has($id)) {
+            Cache::put( $id , rand(0 , 15000000) );
+        }
+        $value = Cache::get($id);     
+        return $this->sendResponse($id , 'Ответ '. $value );  
+    }
+*/

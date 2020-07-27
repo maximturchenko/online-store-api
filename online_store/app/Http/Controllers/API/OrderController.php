@@ -11,6 +11,7 @@ use App\Customer;
 use App\Products_Stocks; 
 use App\Products_Orders; 
 
+
 class OrderController extends BaseController
 {
      /**
@@ -96,8 +97,5 @@ class OrderController extends BaseController
             }
        });
        return $this->sendResponse($products->toArray(), 'Заказ  '.$request->last_name.' '.$request->first_name.' успешно добавлен. Cтоимость заказа: '. $summ_price );
-
-
-
-     }
+   }
 }

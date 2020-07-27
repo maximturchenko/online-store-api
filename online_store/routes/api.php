@@ -27,5 +27,6 @@ Route::get('events/{id}', 'API\EventController@show');
 Route::resource('categories', 'API\CategoryController');
 Route::resource('products', 'API\ProductController');
 
-//Test
 Route::post('orders', 'API\OrderController@order');
+
+ 
