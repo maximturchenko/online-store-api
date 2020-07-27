@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Customer extends Model
-{
+{    
+    use Notifiable;
      /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +19,18 @@ class Customer extends Model
 
     public function orders(){
         return $this->hasMany('App\Order');
+    }
+ 
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return $this->email; 
     }
 
 }

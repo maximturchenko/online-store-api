@@ -11,6 +11,9 @@ use App\Customer;
 use App\Products_Stocks; 
 use App\Products_Orders; 
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\OrderCreated;
 
 class OrderController extends BaseController
 {
@@ -58,7 +61,7 @@ class OrderController extends BaseController
                 return $this->sendError(['Доступный остаток на складе для товара (id: '.$product->id.') '.$product->name => $q_now ], 'Невозможно заказать указанный товар,так как он кончился на складе.');
             }
         }
-        $summ_price = 0; //Финальная стоимость всего заказа
+        $summ_price = 0; //Финальная стоимость всего заказа 
         DB::transaction(function() use ($products,$quantityes,$request,&$summ_price)
         {
             $customer = Customer::firstOrCreate([
@@ -95,7 +98,15 @@ class OrderController extends BaseController
                 $sum_product = $product->price * $quantityes[$key];
                 $summ_price += $sum_product;
             }
-       });
+            Notification::send($customer, new OrderCreated($order->id , $request->all() , $summ_price ));
+       });    
+
        return $this->sendResponse($products->toArray(), 'Заказ  '.$request->last_name.' '.$request->first_name.' успешно добавлен. Cтоимость заказа: '. $summ_price );
    }
+
+   public function test(){
+    // $emails = Config::get('managers.emails');
+       // return $this->sendResponse($emails , 'Майлы менеджеров ' );
+   } 
+
 }

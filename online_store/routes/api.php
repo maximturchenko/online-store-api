@@ -29,4 +29,6 @@ Route::resource('products', 'API\ProductController');
 
 Route::post('orders', 'API\OrderController@order');
 
- 
+
+//Test
+Route::get('riiiiiiiiis', 'API\OrderController@test');
