@@ -27,7 +27,7 @@ API for online store. API-приложение для интернет-мага�
 
     {
         "products": [15,16,19],
-        "quantity": [1,0,0],
+        "quantity": [2,1,1],
         "email": "maksarik1@yandex.ru",
         "phone_number": "+78768670055",
         "first_name": "Максим",
