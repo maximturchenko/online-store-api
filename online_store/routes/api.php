@@ -18,17 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/*
-Route::resource('participants', 'API\ParticipantController');
-Route::get('events', 'API\EventController@index');
-Route::get('events/{id}', 'API\EventController@show');
-*/
-
 Route::resource('categories', 'API\CategoryController');
 Route::resource('products', 'API\ProductController');
 
 Route::post('orders', 'API\OrderController@order');
-
-
-//Test
-Route::get('riiiiiiiiis', 'API\OrderController@test');

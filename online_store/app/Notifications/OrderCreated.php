@@ -46,18 +46,14 @@ class OrderCreated extends Notification  implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage)                   
                   ->greeting('Привет!')
-                    ->line('The introduction to the notification.')
+                    ->line('Заказ успешно создан.')
                     ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!')
-                    ->line($this->summ)
-                    ->line($this->id)
-                    ->line($this->data['first_name'])
-                    ->line($this->data['last_name'])
-                    ->line($this->data['middle_name']);
-
-                    //->subject('Тема уведомления') Изменить тему
+                    ->line('Спасибо за заказ!')
+                    ->line("Сумма заказа: ".$this->summ)
+                    ->line('Номер заказа: '.$this->id)
+                    ->line('Будем рады вас видеть снова, уважаемый '.$this->data['last_name'].' '.$this->data['first_name'].' '.$this->data['middle_name']);
     } 
 
     /**

@@ -109,8 +109,9 @@ class ProductController extends BaseController
             ->leftJoin('products_stocks', 'products.id', '=', 'products_stocks.product_id')
             ->leftJoin('stocks', 'products_stocks.stock_id', '=', 'stocks.id')
             ->where('products.id', '=', $id)
-            ->get();  
-            if (is_null($product) or empty($product['items']) ) {
+            ->get();    
+
+            if (is_null($product) or $product->isEmpty() ) {
                 return $this->sendError('Товар не найден.');
             }
             Cache::put( $id , $product );
@@ -154,14 +155,4 @@ class ProductController extends BaseController
     }
 }
 
-
-/*
-    public function test($id){
-        $value = 0;
-        if (!Cache::has($id)) {
-            Cache::put( $id , rand(0 , 15000000) );
-        }
-        $value = Cache::get($id);     
-        return $this->sendResponse($id , 'Ответ '. $value );  
-    }
-*/
+ 
